@@ -18,6 +18,19 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: users-service
+              uri: lb://USERS-SERVICE
+              predicates:
+                - Path=/auth/**,/users/**
+            - id: appointment-service
+              uri: lb://APPOINTMENT-SERVICE
+              predicates:
+                - Path=/appointments/**
 
 eureka:
   client:
